@@ -1,5 +1,5 @@
 a = int(input())
-if a % 2 != 0: #if a = 0, negative, 
+if a % 2 != 0: 
     print("0 0")
 elif a %4 == 0:
     print(int(a/4), int(a/2))
