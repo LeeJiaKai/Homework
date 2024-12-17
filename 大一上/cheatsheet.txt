@@ -1,1 +1,36 @@
+slicing
+substring = s[start(including) : end(excluding) : step]
+s = "Hello, World!"
+print(s[1:5]) -> ello
 
+
+Dijkstra 思路
+import heapq
+directions = [[-1,0], [0,1], [1,0], [0,-1]]
+def solve(起点坐标，终点坐标，地图，长宽 等等):
+    选择：
+    1. 如果需要记录 单向 greedy 可以考虑 使用dictionary = {(坐标 x，y): 值} 参考assC mountain.py
+    2. 如果需要记录 来回 greedy 可以考虑 使用三维visited = 
+        [[[False]*K for _ in range(col)] for _ in range(row)] 参考assC changing_maze.py
+
+    q = [(值，起点坐标 x，y)]
+    while q:
+        当前值，x，y = heapq.heappop()
+        判断是否抵达终点：if (x,y) == (终点坐标)
+                         return 当前值
+
+        往四个方向移动： for dx dy in directions
+        判断边界： if 0<=nx<R and 0<=ny<C:
+        墙/greedy条件： if grid[nx][ny] == 墙 / 
+                       (x,y) not in dictionary or 下个值 < dictionary[(x，y)] / 
+                       if not visited[][][]
+                       等等
+        可以往前移动：heapq.heappush((值，nx，ny))
+                     更新dictionary[(nx,ny)] = 下个值
+                     visited[][][] = True
+    return "NO" etc (如果抵达不了终点)
+
+def main():
+    处理input
+    solve(起点坐标，终点坐标，地图，长宽 等等)
+main()
