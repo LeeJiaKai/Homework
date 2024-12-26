@@ -1,3 +1,5 @@
+#Longest Increasing Sequences (LIS)
+#find the longest increasing streak of a[i1]<a[i2]<...<a[ik] following the index i1<i2<...<ik
 a = list(map(int, input().split()))
 dp = [1]*len(a)
 for i in range(len(a)):
