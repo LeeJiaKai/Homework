@@ -3,6 +3,28 @@ substring = s[start(including) : end(excluding) : step]
 s = "Hello, World!"
 print(s[1:5]) -> ello
 
+check list
+if not list: (if list is empty)
+if list: (if list have element inside)
+
+sorted(list, key=lambda x: x[0], reverse=)
+
+ascii ord() chr()
+
+dictionary = {(key): value}
+dictionary[(key)] = value\
+
+heapq
+.heapify(list)
+.heappop(q)
+.heappush(q, (element))
+.heappushpop(q, (element)) #pop the smallest and push the element
+
+EOFerror ## to prevent empty input
+try:
+    input()
+except EOFerror:
+    break
 
 Dijkstra 思路
 import heapq
@@ -34,3 +56,47 @@ def main():
     处理input
     solve(起点坐标，终点坐标，地图，长宽 等等)
 main()
+
+
+水仙花数
+a, b = map(int, input().split())
+sx = []
+for i in range(a,b+1):
+    x = i//100
+    y = i//10 - x*10
+    z = i%10
+    if x**3 + y**3 + z**3 == i:
+        sx.append(i)
+if not sx:
+    print("NO")
+else:
+    print(*sx)
+
+最大最小正数（不限长度）
+n = int(input())
+nums = input().split()
+for i in range(n - 1):
+    for j in range(i+1, n):
+        #print(i,j)
+        if nums[i] + nums[j] < nums[j] + nums[i]: #'23'+'9' < '9'+'23'
+            nums[i], nums[j] = nums[j], nums[i] #place the string that has the largest 字典序 in front
+
+ans = "".join(nums)
+nums.reverse()
+print(ans + " " + "".join(nums))
+
+汉诺塔
+n = int(input())
+print(2**n - 1) #least step to solve
+
+def moveHanoi(n, from_rod, to_rod, mid_rod):
+    if n == 0:
+        return
+    # 将前n-1个盘子从from_rod移动到mid_rod，借助to_rod作为辅助
+    moveHanoi(n - 1, from_rod, mid_rod, to_rod)
+    # 将第n个盘子从from_rod直接移动到to_rod
+    print(f"{from_rod}->{to_rod}")
+    # 将前n-1个盘子从mid_rod移动到to_rod，借助from_rod作为辅助
+    moveHanoi(n - 1, mid_rod, to_rod, from_rod)
+
+moveHanoi(n, 'A', 'C', 'B')
