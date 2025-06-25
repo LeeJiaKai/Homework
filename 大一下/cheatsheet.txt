@@ -1,0 +1,99 @@
+from bisect import * - O(log(n))
+a 单调递增
+1 bisect(a,x)   : return 1st element index > x  (rightmost x index +1)
+2 bisect(a,x-1) : return 1st element index >= x (leftmost x index)
+3 bisect(a,x)-1 : return 1st element index <= x (rightmost x index)
+a 单调递减
+a' = [-x for x in a]
+1 ~ bisect(a,-x)
+
+
+    perfect square:
+        left, right = 0, min(x+1, 50000)
+        while left + 1 < right:
+            y = (left+right)//2
+            if x == y*y:
+                return True
+            elif x > y*y:
+                left = y
+            else:
+                right = y
+        return False
+
+
+
+intersect of two lists l1, l2:
+return list(set(l1) & set(l2))
+
+
+BST 二叉搜索树 (left < root < right)
+def insert(val, root):
+    node = Node(val)
+    temp = root
+    while True:
+        if val < temp.val:
+            if not temp.left:
+                temp.left = node
+                break
+            temp = temp.left
+        else:
+            if not temp.right:
+                temp.right = node
+                break
+            temp = temp.right
+
+Combinations 全排列
+from itertools import combinations
+nums = list(map(int, input().split()))
+ans = []
+for i in range(len(nums)+1):
+    for sub in combinations(nums, i):
+        ans.append(list(sub))
+
+
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+bfs with defaultdict
+from collections import defaultdict
+import heapq
+def find_shortest_route(start, end, route):
+    q = [(0, start, [start], [])]
+    while q:
+        d, current, path, d_path = heapq.heappop(q)
+        if current == end:
+            return path, d_path
+        for next, next_d in route[current]:
+            if next in path:
+                continue
+            new_path = path + [next]
+            new_d = d + next_d
+            new_d_path = d_path + [next_d]
+            heapq.heappush(q, (new_d, next, new_path, new_d_path))
+
+p = int(input())
+places = [input() for _ in range(p)]
+
+q = int(input())
+route = defaultdict(list)
+for _ in range(q):
+    a, b, d = input().split()
+    d = int(d)
+    route[a].append((b, d))
+    route[b].append((a, d))
+
+r = int(input())
+for _ in range(r):
+    start, end = input().split()
+    if start == end:
+        print(start)
+        continue
+    path, d_path = find_shortest_route(start, end, route)
+    path = path[1:]
+    res = f"{start}"
+    for i in range(len(path)):
+        res += f"->({d_path[i]})->{path[i]}"
+    print(res)
